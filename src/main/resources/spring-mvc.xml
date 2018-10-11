@@ -31,14 +31,6 @@
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>
-	
-    <!-- 视图解析器 -->
-    <bean
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/view/jsp"></property>
-        <property name="suffix" value=".jsp"></property>
-        <property name="order" value="2" />
-    </bean>
     
     <!-- FreeMarker视图解析器与属性配置 -->
     <bean id="viewResolver"
@@ -70,7 +62,7 @@
     <bean id="freemarkerConfig"
         class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <!-- 模板路径 -->
-        <property name="templateLoaderPath" value="/WEB-INF/view/freemarker" />
+        <property name="templateLoaderPath" value="/WEB-INF/view/" />
         <property name="freemarkerSettings">
             <props>
                 <!-- 刷新模板的周期，单位为秒 -->
