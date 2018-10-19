@@ -1,15 +1,15 @@
 package com.bwf.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("test")
 public class TestController {
-	
-	@GetMapping("test")
+
+	@RequestMapping("test")
 	public void test(){
-		System.out.println("test controller");
+		System.out.println(  "test controller" );
+		
 	}
+	
 }

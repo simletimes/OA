@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>BWFUIFramework</title>
+		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
+		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				// 单个删除
+				$('.delete-user').click(function(){
+					var id = $(this).prev().val() ;
+					location.href = '${rc.contextPath}/user/delete/' + id ;
+				});
+				
+				// 编辑员工信息
+				$('.edit-user').click(function(){
+					var id = $(this).next().val() ;
+					location.href = '${rc.contextPath}/user/edit/' + id ;
+				});
+				
+				// 批量删除
+				$('#deleteMulti').click(function(){
+					$('#form1').submit();
+				});
+				
+				// 添加新员工
+				$('#addUser').click( function(){
+					location.href= '${rc.contextPath}/user/add' ;
+				} );
+				
+				// 上一页
+				$('#btnPrev').click ( function(){
+					location.href= '${rc.contextPath}/user/show?page=' + (${page}-1) ;
+				});
+				
+				// 下一页
+				$('#btnNext').click ( function(){
+					location.href= '${rc.contextPath}/user/show?page=' + (${page}+1) ;
+				});
+			});
+		</script>
+	</head>
+	<body>
+			
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					
+					员工管理
+					<div class="btn-group btn-group-sm pull-right">
+					<button type="button" class="btn btn-default" id="deleteMulti">
+						<img src="${rc.contextPath}/img/7.png" height="16px"/>
+						&nbsp;&nbsp;批量删除
+					</button>
+					
+					<button type="button" class="btn btn-default" id="addUser">
+						<img src="${rc.contextPath}/img/plus.png" height="16px"/>
+						&nbsp;&nbsp;添加数据
+					</button>
+					
+					</div>
+				</div>
+				
+				<div class="panel-body">
+					
+					
+						
+						<table class="table table-bordered table-condensed table-hover table-responsive cbx-group">
+							<thead>
+								<tr>
+									<th class="td-checkbox"><input type="checkbox" class="cbx-all"/></th>
+									<th>员工编号</th>
+									<th>用户名</th>
+									<th>昵称</th>
+									<th>上级领导</th>	
+									<th>头像</th>				
+									<th>操作选项</th>
+								</tr>
+							</thead>
+							<tbody>
+								<form id="form1" action="${rc.contextPath}/user/delete" method="get">
+								<#list allUsers as user1>
+								<tr>
+									<td align="center" class="td-checkbox">
+										<input type="checkbox" name="id" value="${user1.userId}"/>
+									</td>
+									<td>${user1.userId}</td>
+									<td>${user1.username}</td>
+									<td>${user1.nickname}</td>
+									<td>${user1.leader.nickname}</td>
+									<td><img style="height:30px;" class="image image-responsive" src="${rc.contextPath}/img/avaters/${user1.avater}"/></td>
+									<td width="120px">
+										<span class="btn-group btn-group-xs" >
+											<button type="button" class="btn btn-default">查看</button>
+											<button type="button" class="btn btn-default edit-user">编辑</button>
+											<input type="hidden" value="${user1.userId}"/>
+											<button type="button" class="btn btn-danger delete-user">删除</button>
+										</span>
+									</td>
+								</tr>
+								</#list>
+								</form>
+							</tbody>
+							<tfoot>
+								
+							</tfoot>
+						</table>
+						
+						<div class="row">
+							<div class="col-lg-8 col-md-7 col-sm-7 col-xs-5">
+								<div class="btn-group btn-group-sm">
+									<button id="btnPrev" type="button" class="btn btn-darkgreen">
+										<span class="hidden-xs hidden-sm"> 上一页 </span>
+										<span class="hidden-lg hidden-md"> &lt;&lt; </span>
+									</button>
+									<button id="btnNext" type="button" class="btn btn-darkgreen">
+										<span class="hidden-xs hidden-sm"> 下一页 </span>
+										<span class="hidden-lg hidden-md"> &gt;&gt; </span>
+									</button>
+								</div>
+								
+							</div>
+						</div>
+				</div>
+			</div>
+		<div style="height: 80px;"></div>
+	</body>
+</html>
+

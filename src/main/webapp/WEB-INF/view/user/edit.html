@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>BWFUIFramework</title>
+		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
+		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+		<link rel="stylesheet" href="${rc.contextPath}/css/select2.min.css">
+		<script type="text/javascript" src="${rc.contextPath}/js/select2.full.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#leaderSelect').select2();
+			});
+		</script>
+	</head>
+	<body>
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<button onclick="history.back();" type="button" class="btn btn-default btn-back btn-sm"> 返 回 </button>&nbsp;&nbsp;编辑员工
+				</div>
+				<div class="panel-body">
+					<form action="${rc.contextPath}/user/doEdit" method="GET" role="form">
+						<input type="hidden" name="userId" value="${user1.userId}" />
+						<input type="text" readonly="readonly" class="form-control"  placeholder="用户名" value="${user1.username}"/>
+						
+						
+						<input type="text" name="nickname" class="form-control"  placeholder="昵称" value="${user1.nickname}"/>
+						
+						
+						<select name="leader.userId" id="leaderSelect" class="form-control">
+							<option value="-1">-- 请选择上级 --</option>							
+							<#list allUsers as user2>
+								<#if user2.userId=user1.leader.userId>
+									<option selected="selected" value="${user2.userId}">${user2.nickname}</option>							
+								<#else>
+									<option value="${user2.userId}">${user2.nickname}</option>							
+								</#if>								
+							</#list>
+						</select>
+						
+						<div class="form-control">
+							<input type="checkbox" name="resetPassword"/> 重置密码
+						</div>
+						
+						<button type="submit" class="btn btn-danger form-control"> 提交表单 </button>
+					
+					</form>
+				</div>
+			</div>
+			
+
+		<div style="height: 80px;"></div>
+	</body>
+</html>

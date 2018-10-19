@@ -26,11 +26,7 @@ a:active{text-decoration: none;}
 a:visited{text-decoration: none;}
 
 .navbar .navbar-header .navbar-brand{color: #ccc; font-weight: 600;}
-/*.navbar-default{background-color: #23262E; color: white;}
-背景色更改
-*/
-.navbar-default{background-color: #3E5F81; color: white;}
-
+.navbar-default{background-color: #23262E; color: white;}
 .navbar .navbar-text{color:#ccc;}
 .nav-item{margin: 10px 20px 0px 20px;}
 .btn-darkgreen{background-color: #1AA094; color: #fff;}
@@ -47,13 +43,7 @@ a:visited{text-decoration: none;}
 #panel-left{width:200px; background-color: #393D49; height: 100%; overflow: hidden; position: relative; left: 0px; top:55px;}
 #panel-right{ background-color: white; height: 100%; overflow: hidden; padding: 0px; border-width: 5px 0px 0px 2px; border-color:#1AA094; border-style: solid;}
 .navbar,.navbar-default{border: 0px;}
-
-/*
-去掉背景色
 #panel-left-top{ width: 200px; background-color: #393D49; height: 100%; overflow: hidden; position: fixed; left: 0px; top:55px; z-index: 90; }
-*/
-#panel-left-top{ width: 200px; background-color: #393D49; height: 100%; overflow: hidden; position: fixed; left: 0px; top:55px; z-index: 90; }
-
 .img-face{border: 5px solid #44576b; padding: 0px; background-color: #44576b;}
 .full-link{display: block; margin: 0px; padding: 0px; height: 100%; background-color: red;}
 .nopadding{padding: 0px;}

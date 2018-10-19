@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.bwf.dao.AffairMapper">
+
+	<resultMap type="com.bwf.entity.Affair" id="affair">
+		<id column="affair_id" property="affairId"/>				
+		<result column="affair_data" property="affairData"/>	
+		<result column="affair_status" property="affairStatus"/> 
+		
+ 		<association property="affairModule" javaType="com.bwf.entity.AffairModule"
+			column="affair_module_id" resultMap="com.bwf.dao.AffairModuleMapper.affairModule">
+		</association>
+		
+		<association property="proposer" javaType="com.bwf.entity.User"
+			column="proposer" resultMap="com.bwf.dao.UserMapper.simpleUser">
+		</association>
+		
+		<collection property="affairChains" ofType="com.bwf.entity.AffairChain"
+			resultMap="com.bwf.dao.AffairChainMapper.affairChain"
+		></collection>
+	</resultMap>
+	
+	<insert id="add" parameterType="com.bwf.entity.Affair" keyProperty="affairId" useGeneratedKeys="true">
+		insert into affair values ( 
+			null , 
+			#{affairModule.affairModuleId} , 
+			#{affairData} ,
+			#{proposer.userId} ,
+			#{affairStatus}
+		)
+	</insert>
+	
+	<!-- 我发起的 -->
+	<select id="getAffairByMe" parameterType="com.bwf.entity.User" resultMap="affair">
+		select affair.* , affair_module.affair_module_name , user.nickname from affair 
+		inner join affair_module on affair.affair_module_id = affair_module.affair_module_id
+		inner join user on affair.proposer = user.user_id
+		where user.user_id = #{userId}	
+	</select>
+	
+	<!-- 等我审批的 -->
+	<select id="getAffairToBePropose" parameterType="com.bwf.entity.User" resultMap="affair">
+		select affair.* , affair_module.affair_module_name , user.nickname from affair 
+		inner join affair_module on affair.affair_module_id = affair_module.affair_module_id
+		inner join user on affair.proposer = user.user_id
+		inner join affair_chain on affair.affair_id = affair_chain.affair_id
+		where affair_chain.affair_chain_status = 1 and affair_chain.approver = #{userId}
+	</select>
+	
+	<select id="getAffairDetailByAffairId" parameterType="int" resultMap="affair">
+		select affair.* , affair_module.affair_module_name , faqiren.nickname , affair_chain.* , shenpiren.nickname as nickname1  from affair 
+		inner join affair_module on affair.affair_module_id = affair_module.affair_module_id
+		inner join user faqiren on affair.proposer = faqiren.user_id
+		inner join affair_chain on affair.affair_id = affair_chain.affair_id
+		inner join user shenpiren on  shenpiren.user_id = affair_chain.approver
+		where affair.affair_id = #{id};
+	</select>
+	
+	<update id="setStatus" parameterType="com.bwf.entity.Affair">
+		update affair set affair_status = #{affairStatus} 
+		where affair_id = #{affairId}
+	</update>
+	
+
+
+</mapper>

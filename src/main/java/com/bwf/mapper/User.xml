@@ -4,16 +4,86 @@
 
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.bwf.dao.UserMapper">
-	
-  
 
-    <select id="getUserById" parameterType="int" resultType="com.bwf.entity.User">
-        select * from `user` where user_id = #{id}
-    </select>
+	<resultMap type="com.bwf.entity.User" id="simpleUser">
+		<id column="user_id" property="userId"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="avater" property="avater"/>
+		<association property="leader" 
+			javaType="com.bwf.entity.User" 
+			column="leader_id" 
+    		select="getUserById" ></association>
+	</resultMap>
+
+
+	<resultMap type="com.bwf.entity.User" id="nbUser">
+		<id column="user_id" property="userId"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="avater" property="avater"/>
+		
+		<collection property="menus" ofType="com.bwf.entity.Menu" resultMap="com.bwf.dao.MenuMapper.menu">
+			
+		</collection>
+		<collection property="operates" ofType="com.bwf.entity.Operate" resultMap="com.bwf.dao.OperateMapper.operate">
+			
+		</collection>
+	</resultMap>
+	
+
+    
+    <!-- 用户登录 -->
+    <select id="getUserByUsernameAndPassword" 
+    	parameterType="com.bwf.entity.User" 
+    	resultMap="simpleUser">
+    	select * from `user` where username = #{username} and password = #{password}
+   	</select>
+   	
+   	<!-- 根据用户id获取菜单， 操作的集合 -->
+   	<select id="getMenusAndOperatesByUserId" parameterType="int" resultMap="nbUser">
+   		SELECT
+		user.* , menu.* , operate.*
+		FROM user		 
+		INNER JOIN user_role ON user_role.user_id = user.user_id
+		INNER JOIN role ON user_role.role_id = role.role_id
+		INNER JOIN role_permission ON role_permission.role_id = role.role_id
+		INNER JOIN permission ON role_permission.permission_id = permission.permission_id
+		left outer join permission_menu ON permission_menu.permission_id = permission.permission_id
+		left outer join menu ON permission_menu.menu_id = menu.menu_id
+		left outer join permission_operate on permission.permission_id = permission_operate.permission_id
+		left outer join operate on permission_operate.operate_id = operate.operate_id
+		WHERE user.user_id = #{userId}
+   	</select>
+   	
+   	<select id="getUserById" parameterType="int" resultMap="simpleUser">
+   		select * from `user` where user_id = #{userId}
+   	</select>
+   	
+   	<!-- 获取所有用户数据的方法 -->
+   	<select id="getAllUser" resultMap="simpleUser">
+   		select * from `user`
+   	</select>
+   	
+   	<!-- 根据用户，查询他的上级 -->
+   	<select id="getUserWithLeader" parameterType="com.bwf.entity.User" resultMap="simpleUser">
+   		select * from user where user_id = #{userId}   	
+   	</select>
+   	
+   	<!-- 根据页码查询所有用户数据 -->
+   	<select id="getAllUsersByPage" resultMap="simpleUser">
+   		select * from `user` limit #{p} , #{pageSize}
+   	</select>
+   	
+   	<select id="getAllUserCount" resultType="int">
+   		select count(*) from `user`
+   	</select>
     
     <!-- 增加一个 user -->
-    <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="user_id">
-    	insert into `user` values ( null , #{username} , #{password} , #{nickname} ,#{leaderId} )
+    <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="userId">
+    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leader.userId} , #{avater}  )
     </insert>
     
     <!-- 删除 一个 user -->
@@ -21,15 +91,40 @@
     	delete from user where user_id = #{id}
     </delete>
     
+    <!-- 删除多个 user -->
+    <delete id="deleteMulti">
+    	delete from `user` where user_id in 
+    	<foreach collection="idArr" open="(" close=")" separator="," item="id">
+    		#{id}
+    	</foreach>
+    </delete>
+    
     <update id="update" parameterType="com.bwf.entity.User">
     	update `user` set 
-    	username = #{username} , 
-    	password = #{password} , 
-    	nickname = #{nickname}, 
-    	leader_id = #{leaderId}
+    		username = #{username} , 
+    		password = #{password} , 
+    		nickname = #{nickname} ,
+    		leader_id = #{leaderId} ,
+    		avater = #{avater}
     	where user_id = #{userId}
     </update>
     
+    <!-- 修改并重置密码 -->
+    <update id="updateWithPassword" parameterType="com.bwf.entity.User">
+    	update `user` set     		
+    		password = '202CB962AC59075B964B07152D234B70' , 
+    		nickname = #{nickname} ,
+    		leader_id = #{leader.userId} 
+    	where user_id = #{userId}
+    </update>
+    
+    <!-- 修改不重置密码 -->
+    <update id="updateWithoutPassword" parameterType="com.bwf.entity.User">
+    	update `user` set     	
+    		nickname = #{nickname} ,
+    	    leader_id = #{leader.userId} 
+    	where user_id = #{userId}
+    </update>
    
     
     
