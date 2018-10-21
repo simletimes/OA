@@ -13,12 +13,12 @@ import com.bwf.service.IDepartmentService;
 public class DepartmentServiceImpl implements IDepartmentService{
 	
 	@Autowired
-	com.bwf.dao.DepartmentMapper departmentMapper;
+	DepartmentMapper departmentMapper;
 
 	@Override
-	public List<Department> getAll() {
+	public List<Department> getAllDepartment() {
 		
-		return departmentMapper.getAll();
+		return departmentMapper.getAllDepartment();
 	}
 
 }

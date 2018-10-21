@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Manage</title>
+		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
+		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				// 单个删除
+				$('.delete-user').click(function(){
+					var id = $(this).prev().val() ;
+					location.href = '${rc.contextPath}/user/delete/' + id ;
+				});
+				
+				// 编辑员工信息
+				$('.edit-user').click(function(){
+					var id = $(this).next().val() ;
+					location.href = '${rc.contextPath}/user/edit/' + id ;
+				});
+				
+				// 批量删除
+				$('#deleteMulti').click(function(){
+					$('#form1').submit();
+				});
+				
+				// 添加新员工
+				$('#addUser').click( function(){
+					location.href= '${rc.contextPath}/user/add' ;
+				} );
+			});
+		</script>
+	</head>
+	<body>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					角色管理
+				</div>
+				<div class="panel-body">
+						<table class="table table-bordered table-condensed table-hover table-responsive cbx-group">
+							<thead>
+								<tr>
+									<th>角色编号</th>
+									<th>角色名称</th>
+									<th>操作选项</th>
+								</tr>
+							</thead>
+							<tbody>
+								<form id="form1" action="${rc.contextPath}/role/delete" method="get">
+								<#list allRoles as roles>
+								<tr>
+									<td>${roles.roleId}</td>
+									<td>${roles.roleName}</td>
+									<td width="120px">
+										<span class="btn-group btn-group-xs" >
+											<button type="button" class="btn btn-default">查看</button>
+											<button type="button" class="btn btn-default edit-user">编辑</button>
+											<button type="button" class="btn btn-danger delete-user">删除</button>
+										</span>
+									</td>
+								</tr>
+								</#list>
+								</form>
+							</tbody>
+							<tfoot>
+								
+							</tfoot>
+						</table>
+				</div>
+			</div>
+		<div style="height: 80px;"></div>
+	</body>
+</html>

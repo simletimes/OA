@@ -8,4 +8,6 @@ public interface IRoleService {
 
 	List<Role> getAllRoles();
 
+	void delete(Integer id);
+
 }

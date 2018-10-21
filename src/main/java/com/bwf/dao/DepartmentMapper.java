@@ -6,6 +6,6 @@ import com.bwf.entity.Department;
 
 public interface DepartmentMapper {
 
-	List<Department> getAll();
+	List<Department> getAllDepartment();
 
 }

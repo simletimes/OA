@@ -125,11 +125,4 @@
     	    leader_id = #{leader.userId} 
     	where user_id = #{userId}
     </update>
-   
-    
-    
-    
-    
-    
-
 </mapper>

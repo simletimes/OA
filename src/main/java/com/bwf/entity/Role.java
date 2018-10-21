@@ -8,6 +8,7 @@ public class Role {
 	
 	private Department department;
 	
+	//private Role role;
 	
 
 	@Override
@@ -38,6 +39,14 @@ public class Role {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
+//	public Role getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(Role role) {
+//		this.role = role;
+//	}
 	
 	
 }

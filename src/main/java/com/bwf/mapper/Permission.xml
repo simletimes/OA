@@ -33,6 +33,4 @@
 			( #{roleId} , #{permissionId} ) 
 		</foreach>
 	</insert>
-
-
 </mapper>

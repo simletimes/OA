@@ -9,7 +9,7 @@
 		<id column="role_id" property="roleId"/>
 		<result column="role_name" property="roleName"/>
 		
-		<association property="department" column="department_id" javaType="com.bwf.entity.Department">
+		<association property="department" column="department_name" javaType="com.bwf.entity.Department">
 		</association>
 
 	</resultMap>
@@ -18,6 +18,4 @@
 		select * from role left outer join department on 
 		role.department_id = department.department_id
 	</select>
-
-
 </mapper>

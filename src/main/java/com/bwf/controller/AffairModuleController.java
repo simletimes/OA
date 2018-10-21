@@ -47,7 +47,7 @@ public class AffairModuleController {
 	@GetMapping("add")
 	public String add(ModelMap modelMap){
 		
-		modelMap.addAttribute("allDepartments", departmentService.getAll() ) ;
+		modelMap.addAttribute("allDepartments", departmentService.getAllDepartment() ) ;
 		return "affair_module/add";
 	}
 	
@@ -77,7 +77,7 @@ public class AffairModuleController {
 		
 		modelMap.addAttribute("affairModule", affairModule);
 		modelMap.addAttribute("moduleOptions", moduleOptions);
-		modelMap.addAttribute("allDepartments", departmentService.getAll() ) ;
+		modelMap.addAttribute("allDepartments", departmentService.getAllDepartment() ) ;
 		modelMap.addAttribute("affairModuleChains", affairModuleChains);
 		modelMap.addAttribute("id", id);
 		

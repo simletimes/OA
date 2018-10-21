@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>上海博为峰软件技术股份有限公司</title>
+		<title>OA办公系统</title>
 		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
@@ -41,38 +41,29 @@
 				}
 			
 			});
-		
 		</script>
 	</head>
 	<body>
-		
-        		<img src="${rc.contextPath}/img/bwf_logo.png" height="50px" style="position:fixed;right:50px; top:20px;"/>	
-		
-		
+		<img src="${rc.contextPath}/img/bwf_logo.png" height="50px" style="position:fixed;right:50px; top:20px;"/>	
 		<!--
         	作者：titushan2010@163.com
         	时间：2017-09-20
         	描述：登录面板
        -->
-		<div align="center" style="width:100%; position:fixed; top:160px; ">
+		<div align="center" style="width:100%; position:fixed; top:160px;">
         <div align="center" style="width:400px; padding:0px; margin:0px; ">
             <form action="${rc.contextPath}/user/doLogin" method="POST">
-                <div class="panel panel-default" style="padding:0px; margin:0px;">
-                    <div class="panel-heading">
-                        欢迎登录管理系统
+                <div class="panel panel-default" style="padding:0px; margin:0px; background:#F7C940">
+                    <div class="panel-heading" style="background:#F7C940">
+                       	 欢迎登录管理系统
                     </div>
                     <div class="panel-body">
-                    
-                    
-					
                         <input type="text" name="username" class="form-control" placeholder="账户名称"/>
                         <div style="height:10px;"></div>
                         <input type="password" name="password" class="form-control" placeholder="账户密码" />
-
                     </div>
-                    <div class="panel-footer">
+                    <div class="panel-footer" style="background:#F7C940">
                         <button type="submit" class="btn btn-primary btn-sm form-control"> 登  录 </button>
-
                     </div>
                 </div>
             </form>
