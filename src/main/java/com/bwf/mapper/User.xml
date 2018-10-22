@@ -4,7 +4,6 @@
 
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.bwf.dao.UserMapper">
-
 	<resultMap type="com.bwf.entity.User" id="simpleUser">
 		<id column="user_id" property="userId"/>
 		<result column="username" property="username"/>
@@ -16,32 +15,23 @@
 			column="leader_id" 
     		select="getUserById" ></association>
 	</resultMap>
-
-
 	<resultMap type="com.bwf.entity.User" id="nbUser">
 		<id column="user_id" property="userId"/>
 		<result column="username" property="username"/>
 		<result column="password" property="password"/>
 		<result column="nickname" property="nickname"/>
 		<result column="avater" property="avater"/>
-		
 		<collection property="menus" ofType="com.bwf.entity.Menu" resultMap="com.bwf.dao.MenuMapper.menu">
-			
 		</collection>
 		<collection property="operates" ofType="com.bwf.entity.Operate" resultMap="com.bwf.dao.OperateMapper.operate">
-			
 		</collection>
 	</resultMap>
-	
-
-    
     <!-- 用户登录 -->
     <select id="getUserByUsernameAndPassword" 
     	parameterType="com.bwf.entity.User" 
     	resultMap="simpleUser">
     	select * from `user` where username = #{username} and password = #{password}
    	</select>
-   	
    	<!-- 根据用户id获取菜单， 操作的集合 -->
    	<select id="getMenusAndOperatesByUserId" parameterType="int" resultMap="nbUser">
    		SELECT
@@ -57,26 +47,21 @@
 		left outer join operate on permission_operate.operate_id = operate.operate_id
 		WHERE user.user_id = #{userId}
    	</select>
-   	
    	<select id="getUserById" parameterType="int" resultMap="simpleUser">
    		select * from `user` where user_id = #{userId}
    	</select>
-   	
    	<!-- 获取所有用户数据的方法 -->
    	<select id="getAllUser" resultMap="simpleUser">
    		select * from `user`
    	</select>
-   	
    	<!-- 根据用户，查询他的上级 -->
    	<select id="getUserWithLeader" parameterType="com.bwf.entity.User" resultMap="simpleUser">
    		select * from user where user_id = #{userId}   	
    	</select>
-   	
    	<!-- 根据页码查询所有用户数据 -->
    	<select id="getAllUsersByPage" resultMap="simpleUser">
    		select * from `user` limit #{p} , #{pageSize}
    	</select>
-   	
    	<select id="getAllUserCount" resultType="int">
    		select count(*) from `user`
    	</select>
@@ -98,7 +83,6 @@
     		#{id}
     	</foreach>
     </delete>
-    
     <update id="update" parameterType="com.bwf.entity.User">
     	update `user` set 
     		username = #{username} , 
@@ -108,7 +92,6 @@
     		avater = #{avater}
     	where user_id = #{userId}
     </update>
-    
     <!-- 修改并重置密码 -->
     <update id="updateWithPassword" parameterType="com.bwf.entity.User">
     	update `user` set     		
@@ -117,7 +100,6 @@
     		leader_id = #{leader.userId} 
     	where user_id = #{userId}
     </update>
-    
     <!-- 修改不重置密码 -->
     <update id="updateWithoutPassword" parameterType="com.bwf.entity.User">
     	update `user` set     	

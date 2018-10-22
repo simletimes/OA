@@ -32,6 +32,12 @@ public class RoleController {
 		return "role/show";
 	}
 	
+	@GetMapping("edit")
+	public String show(){
+		
+		return "role/edit";
+	}
+	
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable Integer id){
 		//删除角色

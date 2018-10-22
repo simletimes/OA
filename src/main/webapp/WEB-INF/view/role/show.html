@@ -18,22 +18,11 @@
 					var id = $(this).prev().val() ;
 					location.href = '${rc.contextPath}/user/delete/' + id ;
 				});
-				
 				// 编辑员工信息
-				$('.edit-user').click(function(){
+				$('.roleEdit').click(function(){
 					var id = $(this).next().val() ;
-					location.href = '${rc.contextPath}/user/edit/' + id ;
+					location.href = '${rc.contextPath}/role/edit/' + id ;
 				});
-				
-				// 批量删除
-				$('#deleteMulti').click(function(){
-					$('#form1').submit();
-				});
-				
-				// 添加新员工
-				$('#addUser').click( function(){
-					location.href= '${rc.contextPath}/user/add' ;
-				} );
 			});
 		</script>
 	</head>
@@ -60,8 +49,8 @@
 									<td width="120px">
 										<span class="btn-group btn-group-xs" >
 											<button type="button" class="btn btn-default">查看</button>
-											<button type="button" class="btn btn-default edit-user">编辑</button>
-											<button type="button" class="btn btn-danger delete-user">删除</button>
+											<button type="button" class="btn btn-default roleEdit">编辑</button>
+											<button type="button" class="btn btn-danger delete-role">删除</button>
 										</span>
 									</td>
 								</tr>
@@ -69,7 +58,6 @@
 								</form>
 							</tbody>
 							<tfoot>
-								
 							</tfoot>
 						</table>
 				</div>
